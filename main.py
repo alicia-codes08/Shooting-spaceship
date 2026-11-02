@@ -1,6 +1,8 @@
 import pygame 
 import sys
 
+from rocket import Rocket
+
 class Shooting_Rocket():
     """Main class"""
 
@@ -8,18 +10,20 @@ class Shooting_Rocket():
         """Initialize attributes."""
         pygame.init()
         self.clock = pygame.time.Clock()
-        self.screen = pygame.display.set_mode((800, 600))
-
+        self.screen = pygame.display.set_mode((800, 600)) 
+        # game elements
+        self.rocket = Rocket(self) 
         # settings
-        self.bg_color = (0, 0, 50)
-
+        self.bg_color = (0, 0, 10)
         # give a caption 
         pygame.display.set_caption("SHOOTING ROCKET!")
+
 
     def run(self):
         """Run the game."""
         while True:
             self._activity()
+            self.rocket.moving_rocket() 
             self.draw() 
             self.clock.tick(60)            
 
@@ -28,14 +32,26 @@ class Shooting_Rocket():
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 sys.exit()
+
             elif event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_q:
                     sys.exit() 
+                elif event.key == pygame.K_RIGHT:
+                    self.rocket.moving_right = True
+                elif event.key == pygame.K_LEFT:
+                    self.rocket.moving_left = True
+
+            elif event.type == pygame.KEYUP:
+                if event.key==pygame.K_RIGHT:
+                    self.rocket.moving_right = False
+                elif event.key==pygame.K_LEFT:
+                    self.rocket.moving_left = False 
 
 
     def draw(self):
         """Draw the game based on game events.""" 
         self.screen.fill(self.bg_color)
+        self.rocket.draw_rocket()
         pygame.display.flip()
 
 
