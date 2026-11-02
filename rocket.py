@@ -11,7 +11,7 @@ class Rocket():
 
         # rocket image 
         rocket_load = pygame.image.load("rocket.png").convert_alpha()
-        self.rocket = pygame.transform.scale(rocket_load, (60, 80))
+        self.rocket = pygame.transform.scale(rocket_load, (70, 90))
         self.rocket_rect = self.rocket.get_rect() 
 
         # start rocket in the middle on the bottom of the screen

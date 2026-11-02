@@ -1,7 +1,10 @@
 import pygame 
 import sys
+from pygame.sprite import Group 
 
 from rocket import Rocket
+from bullets import Bullets 
+
 
 class Shooting_Rocket():
     """Main class"""
@@ -13,6 +16,7 @@ class Shooting_Rocket():
         self.screen = pygame.display.set_mode((800, 600)) 
         # game elements
         self.rocket = Rocket(self) 
+        self.bullets = pygame.sprite.Group()
         # settings
         self.bg_color = (0, 0, 10)
         # give a caption 
@@ -40,6 +44,8 @@ class Shooting_Rocket():
                     self.rocket.moving_right = True
                 elif event.key == pygame.K_LEFT:
                     self.rocket.moving_left = True
+                elif event.key == pygame.K_SPACE:
+                    self._make_bullet()
 
             elif event.type == pygame.KEYUP:
                 if event.key==pygame.K_RIGHT:
@@ -47,15 +53,23 @@ class Shooting_Rocket():
                 elif event.key==pygame.K_LEFT:
                     self.rocket.moving_left = False 
 
+    def _make_bullet(self):
+        """Make a dart"""
+        new_bullet = Bullets(self)
+        self.bullets.add(new_bullet) 
+
 
     def draw(self):
         """Draw the game based on game events.""" 
         self.screen.fill(self.bg_color)
         self.rocket.draw_rocket()
+        for bullet in self.bullets:
+            bullet.update() 
+            bullet.draw_bullet() 
         pygame.display.flip()
 
 
 # running the game 
 if __name__ == "__main__":
     shooting_rocket = Shooting_Rocket()
-    shooting_rocket.run() 
+    shooting_rocket.run()  
