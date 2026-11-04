@@ -15,8 +15,13 @@ class Shooting_Rocket():
         pygame.init()
         self.clock = pygame.time.Clock()
         self.settings = Settings() # settings
+
+        # background
         self.screen = pygame.display.set_mode((self.settings.screen_w, 
-                                               self.settings.screen_h)) 
+                                               self.settings.screen_h))
+        self.background_image = pygame.image.load("space_bg.png").convert()
+        self.background = pygame.transform.scale(self.background_image,
+                            (self.settings.screen_w, self.settings.screen_h)) 
         # game elements
         self.rocket = Rocket(self) 
         self.bullets = pygame.sprite.Group()
@@ -71,7 +76,7 @@ class Shooting_Rocket():
 
     def draw(self):
         """Draw the game based on game events.""" 
-        self.screen.fill(self.settings.bg_color)
+        self.screen.blit(self.background, (0, 0))
         self.rocket.draw_rocket()
         for bullet in self.bullets:
             bullet.update() 

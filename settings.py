@@ -5,7 +5,6 @@ class Settings():
         # screen settings
         self.screen_w = 800
         self.screen_h = 600 
-        self.bg_color = (0, 0, 10) 
 
         # element dimensions
         self.rocket_w = 70
