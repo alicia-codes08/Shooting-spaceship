@@ -11,7 +11,7 @@ class Rocket():
         self.settings = shooting_rocket.settings # settings
 
         # rocket image 
-        rocket_load = pygame.image.load("rocket.png").convert_alpha()
+        rocket_load = pygame.image.load("purple_rocket.png").convert_alpha()
         self.rocket = pygame.transform.scale(rocket_load, 
                             (self.settings.rocket_w, self.settings.rocket_h))
         self.rocket_rect = self.rocket.get_rect() 
