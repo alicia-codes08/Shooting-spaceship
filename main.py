@@ -28,8 +28,16 @@ class Shooting_Rocket():
         while True:
             self._activity()
             self.rocket.moving_rocket() 
+            self._check_bullet()
             self.draw() 
-            self.clock.tick(60)            
+            self.clock.tick(60)         
+
+    def _check_bullet(self):
+            """Remove bullets, that are not on the screen anymore."""
+            if self.bullets:
+                for bullet in self.bullets:
+                    if bullet.bullet_rect.bottom <= 0:
+                        self.bullets.remove(bullet)    
 
     def _activity(self):
         """Take action based on keyboard activity."""
