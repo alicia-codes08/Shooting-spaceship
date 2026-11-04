@@ -5,6 +5,7 @@ from pygame.sprite import Group
 from rocket import Rocket
 from bullets import Bullets 
 from settings import Settings 
+from enemies import Enemy
 
 
 class Shooting_Rocket():
@@ -25,6 +26,7 @@ class Shooting_Rocket():
         # game elements
         self.rocket = Rocket(self) 
         self.bullets = pygame.sprite.Group()
+        self.enemies = pygame.sprite.Group()
         # give a caption 
         pygame.display.set_caption("SHOOTING ROCKET!")
 
@@ -33,13 +35,23 @@ class Shooting_Rocket():
         """Run the game."""
         while True:
             self._activity()
+            self.create_enemies()
             self.rocket.moving_rocket() 
             self._check_bullet()
             self.draw() 
             self.clock.tick(60)    
 
     def create_enemies(self):
-        """Create an enemy that moves."""     
+        """Create an enemy."""  
+        if len(self.enemies)==0:
+            new_enemy =  Enemy(self)
+            self.enemies.add(new_enemy) 
+        elif len(self.enemies)!=0:
+            last_enemy = self.enemies.sprites()[-1]
+            if last_enemy.enemy_rect.y>=self.settings.spawn_gab:
+                new_enemy =  Enemy(self)
+                self.enemies.add(new_enemy) 
+                
 
     def _check_bullet(self):
             """Remove bullets, that are not on the screen anymore."""
@@ -84,6 +96,9 @@ class Shooting_Rocket():
         for bullet in self.bullets:
             bullet.update() 
             bullet.draw_bullet() 
+        for enemy in self.enemies:
+            enemy.update()
+            enemy.draw_enemy()
         pygame.display.flip()
 
 

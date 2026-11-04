@@ -11,13 +11,15 @@ class Settings():
         self.rocket_h = 110
         self.bullet_w = 25
         self.bullet_h = 25
-        self.enemy_w = 70
-        self.enemy_h = 90
+        self.enemy_w = 60
+        self.enemy_h = 80
 
         # velocity
         self.rocket_v = 5
         self.bullet_v = 4
-        self.enemy_v = 3 
+        self.enemy_v = 1 
 
         # bullet capacity
         self.capacity = 5
+        # spawn new enemy gab
+        self.spawn_gab = 60 
