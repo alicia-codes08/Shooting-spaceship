@@ -8,10 +8,12 @@ class Rocket():
         """Initialize attributes."""
         self.screen = shooting_rocket.screen
         self.screen_rect = self.screen.get_rect()
+        self.settings = shooting_rocket.settings # settings
 
         # rocket image 
         rocket_load = pygame.image.load("rocket.png").convert_alpha()
-        self.rocket = pygame.transform.scale(rocket_load, (70, 90))
+        self.rocket = pygame.transform.scale(rocket_load, 
+                            (self.settings.rocket_w, self.settings.rocket_h))
         self.rocket_rect = self.rocket.get_rect() 
 
         # start rocket in the middle on the bottom of the screen
@@ -28,6 +30,6 @@ class Rocket():
     def moving_rocket(self):
         """Moving rocket horizontal."""
         if self.moving_right and (self.rocket_rect.right<self.screen_rect.right):
-            self.rocket_rect.x += 2
+            self.rocket_rect.x += self.settings.rocket_v
         if self.moving_left and (self.rocket_rect.left>0):
-            self.rocket_rect.x -= 2
+            self.rocket_rect.x -= self.settings.rocket_v

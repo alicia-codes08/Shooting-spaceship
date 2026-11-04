@@ -4,6 +4,7 @@ from pygame.sprite import Group
 
 from rocket import Rocket
 from bullets import Bullets 
+from settings import Settings 
 
 
 class Shooting_Rocket():
@@ -13,12 +14,12 @@ class Shooting_Rocket():
         """Initialize attributes."""
         pygame.init()
         self.clock = pygame.time.Clock()
-        self.screen = pygame.display.set_mode((800, 600)) 
+        self.settings = Settings() # settings
+        self.screen = pygame.display.set_mode((self.settings.screen_w, 
+                                               self.settings.screen_h)) 
         # game elements
         self.rocket = Rocket(self) 
         self.bullets = pygame.sprite.Group()
-        # settings
-        self.bg_color = (0, 0, 10)
         # give a caption 
         pygame.display.set_caption("SHOOTING ROCKET!")
 
@@ -63,13 +64,14 @@ class Shooting_Rocket():
 
     def _make_bullet(self):
         """Make a dart"""
-        new_bullet = Bullets(self)
-        self.bullets.add(new_bullet) 
+        if len(self.bullets) < self.settings.capacity:
+            new_bullet = Bullets(self)
+            self.bullets.add(new_bullet) 
 
 
     def draw(self):
         """Draw the game based on game events.""" 
-        self.screen.fill(self.bg_color)
+        self.screen.fill(self.settings.bg_color)
         self.rocket.draw_rocket()
         for bullet in self.bullets:
             bullet.update() 
