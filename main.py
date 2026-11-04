@@ -36,7 +36,10 @@ class Shooting_Rocket():
             self.rocket.moving_rocket() 
             self._check_bullet()
             self.draw() 
-            self.clock.tick(60)         
+            self.clock.tick(60)    
+
+    def create_enemies(self):
+        """Create an enemy that moves."""     
 
     def _check_bullet(self):
             """Remove bullets, that are not on the screen anymore."""
@@ -82,6 +85,7 @@ class Shooting_Rocket():
             bullet.update() 
             bullet.draw_bullet() 
         pygame.display.flip()
+
 
 
 # running the game 
