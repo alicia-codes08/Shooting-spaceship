@@ -33,3 +33,8 @@ class Rocket():
             self.rocket_rect.x += self.settings.rocket_v
         if self.moving_left and (self.rocket_rect.left>0):
             self.rocket_rect.x -= self.settings.rocket_v
+
+    def center_rocket(self):
+        """Center the rocket when starting a new game."""
+        self.rocket_rect.midbottom = self.screen_rect.midbottom
+        self.rocket_rect.y -= 30 

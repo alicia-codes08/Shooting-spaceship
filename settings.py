@@ -18,6 +18,8 @@ class Settings():
         self.play_w = 160
         self.play_h = 60
         self.play_text = 48 
+        self.play_color = (200, 30, 200)
+        self.play_color_text = (255, 255, 255)
 
         # velocities 
         self.rocket_v = 5

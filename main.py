@@ -34,6 +34,14 @@ class Shooting_Rocket():
         # play button
         self.play_button = Play(self) 
 
+    
+    def _play_clicked(self, mouse_pos):
+        """Start game when playbutton is clicked."""
+        if self.play_button.play_rect.collidepoint(mouse_pos):
+            self.enemies.empty()
+            self.bullets.empty()
+            self.rocket.center_rocket() 
+            self.stats.active = True
 
     def run(self):
         """Run the game."""
@@ -84,19 +92,12 @@ class Shooting_Rocket():
                 if enemy.enemy_rect.top >= self.settings.screen_h:
                     self.enemies.remove(enemy)
                 
-    def _check_bullet(self):
-            """Remove bullets, that are not on the screen anymore."""
-            if self.bullets:
-                for bullet in self.bullets.copy():
-                    if bullet.bullet_rect.bottom <= 0:
-                        self.bullets.remove(bullet)    
-
+    
     def _activity(self):
         """Take action based on keyboard activity."""
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 sys.exit()
-
             elif event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_q:
                     sys.exit() 
@@ -106,12 +107,14 @@ class Shooting_Rocket():
                     self.rocket.moving_left = True
                 elif event.key == pygame.K_SPACE:
                     self._make_bullet()
-
             elif event.type == pygame.KEYUP:
                 if event.key==pygame.K_RIGHT:
                     self.rocket.moving_right = False
                 elif event.key==pygame.K_LEFT:
                     self.rocket.moving_left = False 
+            elif event.type == pygame.MOUSEBUTTONDOWN:
+                mouse_pos = pygame.mouse.get_pos()
+                self._play_clicked(mouse_pos)
 
     def _make_bullet(self):
         """Make a dart"""
@@ -119,8 +122,16 @@ class Shooting_Rocket():
             new_bullet = Bullets(self)
             self.bullets.add(new_bullet) 
 
+    def _check_bullet(self):
+        """Remove bullets, that are not on the screen anymore."""
+        if self.bullets:
+            for bullet in self.bullets.copy():
+                if bullet.bullet_rect.bottom <= 0:
+                    self.bullets.remove(bullet)  
+
     def draw(self):
         """Draw the game based on game events.""" 
+        # drawing on the screen when inactive
         self.screen.blit(self.background, (0, 0))
         self.rocket.draw_rocket()
         for bullet in self.bullets:
@@ -129,7 +140,6 @@ class Shooting_Rocket():
         for enemy in self.enemies:
             enemy.update()
             enemy.draw_enemy() 
-        # drawing on the screen when inactive
         if not self.stats.active:
             self.play_button.draw_playbutton()
         pygame.display.flip() 
