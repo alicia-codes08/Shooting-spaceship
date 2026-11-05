@@ -23,9 +23,11 @@ class Enemy(Sprite):
 
         # positioning the enemy
         self.enemy_rect.midbottom = self.screen_rect.midtop 
-        self.enemy_rect.x = randint(0, self.settings.screen_w) 
+        left_side = int(self.settings.enemy_w*0.5)
+        right_side = int(self.settings.screen_w - left_side)
+        self.enemy_rect.x = randint(left_side, right_side) 
 
-        self.y = float(self.enemy_rect.y)
+        self.y = float(self.enemy_rect.y) 
 
     def draw_enemy(self):
         """Draw the enemy on the screen."""

@@ -5,18 +5,17 @@ from pygame.sprite import Group
 from rocket import Rocket
 from bullets import Bullets 
 from settings import Settings 
-from enemies import Enemy
+from enemies import Enemy 
 
 
 class Shooting_Rocket():
-    """Main class"""
+    """Class to run the game and manages the logic of the game elements."""
 
     def __init__(self):
         """Initialize attributes."""
         pygame.init()
         self.clock = pygame.time.Clock()
         self.settings = Settings() # settings
-
         # background
         self.screen = pygame.display.set_mode((self.settings.screen_w, 
                                                self.settings.screen_h))
@@ -28,18 +27,40 @@ class Shooting_Rocket():
         self.bullets = pygame.sprite.Group()
         self.enemies = pygame.sprite.Group()
         # give a caption 
-        pygame.display.set_caption("SHOOTING ROCKET!")
+        pygame.display.set_caption("SHOOTING SPACESHIP!")
+
+        # game status
+        self.game_status = self.settings.game_status 
 
 
     def run(self):
         """Run the game."""
-        while True:
+        while self.game_status:
             self._activity()
             self.create_enemies()
             self.rocket.moving_rocket() 
+            self._check_enemies() 
             self._check_bullet()
+            self.check_collision() 
             self.draw() 
             self.clock.tick(60)    
+
+    def check_collision(self):
+        """Check if collision between bullets and enemies took place."""
+        for bullet in self.bullets.copy():
+            for enemy in self.enemies.copy():
+                if bullet.bullet_rect.colliderect(enemy.enemy_rect):
+                    self.bullets.remove(bullet)
+                    self.enemies.remove(enemy)
+
+        # Stop the game after rocket hits an enemy
+        for enemy in self.enemies.copy():
+            if self.rocket.rocket_rect.colliderect(enemy.enemy_rect):
+                self.game_status = False 
+        # Stop the game after an enemy hits the bottom of the screen 
+        for enemy in self.enemies.copy():
+            if enemy.enemy_rect.bottom >= self.settings.screen_h:
+                self.game_status = False
 
     def create_enemies(self):
         """Create an enemy."""  
@@ -51,12 +72,18 @@ class Shooting_Rocket():
             if last_enemy.enemy_rect.y>=self.settings.spawn_gab:
                 new_enemy =  Enemy(self)
                 self.enemies.add(new_enemy) 
-                
 
+    def _check_enemies(self):
+        """Remove enemies, that are not visible anymore."""
+        if self.enemies:
+            for enemy in self.enemies:
+                if enemy.enemy_rect.top >= self.settings.screen_h:
+                    self.enemies.remove(enemy)
+                
     def _check_bullet(self):
             """Remove bullets, that are not on the screen anymore."""
             if self.bullets:
-                for bullet in self.bullets:
+                for bullet in self.bullets.copy():
                     if bullet.bullet_rect.bottom <= 0:
                         self.bullets.remove(bullet)    
 
@@ -88,7 +115,6 @@ class Shooting_Rocket():
             new_bullet = Bullets(self)
             self.bullets.add(new_bullet) 
 
-
     def draw(self):
         """Draw the game based on game events.""" 
         self.screen.blit(self.background, (0, 0))
@@ -98,8 +124,8 @@ class Shooting_Rocket():
             bullet.draw_bullet() 
         for enemy in self.enemies:
             enemy.update()
-            enemy.draw_enemy()
-        pygame.display.flip()
+            enemy.draw_enemy() 
+        pygame.display.flip() 
 
 
 
