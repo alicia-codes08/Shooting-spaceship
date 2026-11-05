@@ -7,6 +7,7 @@ from bullets import Bullets
 from settings import Settings 
 from enemies import Enemy 
 from statistics import Stats
+from play_button import Play
 
 
 class Shooting_Rocket():
@@ -14,13 +15,13 @@ class Shooting_Rocket():
 
     def __init__(self):
         """Initialize attributes."""
-        pygame.init()
+        pygame.init() 
         self.clock = pygame.time.Clock()
         self.settings = Settings() # settings
         self.stats = Stats(self)
         # background
         self.screen = pygame.display.set_mode((self.settings.screen_w, 
-                                               self.settings.screen_h))
+                                               self.settings.screen_h)) 
         self.background_image = pygame.image.load("space_bg.png").convert()
         self.background = pygame.transform.scale(self.background_image,
                             (self.settings.screen_w, self.settings.screen_h)) 
@@ -29,7 +30,9 @@ class Shooting_Rocket():
         self.bullets = pygame.sprite.Group()
         self.enemies = pygame.sprite.Group()
         # give a caption 
-        pygame.display.set_caption("SHOOTING SPACESHIP!")
+        pygame.display.set_caption("SHOOTING SPACESHIP!") 
+        # play button
+        self.play_button = Play(self) 
 
 
     def run(self):
@@ -45,7 +48,6 @@ class Shooting_Rocket():
                 self.draw()     
             self.draw() 
             self.clock.tick(60)
-
 
     def check_collision(self):
         """Check if collision between bullets and enemies took place."""
@@ -127,6 +129,9 @@ class Shooting_Rocket():
         for enemy in self.enemies:
             enemy.update()
             enemy.draw_enemy() 
+        # drawing on the screen when inactive
+        if not self.stats.active:
+            self.play_button.draw_playbutton()
         pygame.display.flip() 
 
 

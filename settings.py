@@ -14,7 +14,12 @@ class Settings():
         self.enemy_w = 70
         self.enemy_h = 90
 
-        # velocity
+        # button dimensions
+        self.play_w = 160
+        self.play_h = 60
+        self.play_text = 48 
+
+        # velocities 
         self.rocket_v = 5
         self.bullet_v = 4
         self.enemy_v = 1 
