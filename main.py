@@ -6,6 +6,7 @@ from rocket import Rocket
 from bullets import Bullets 
 from settings import Settings 
 from enemies import Enemy 
+from statistics import Stats
 
 
 class Shooting_Rocket():
@@ -16,6 +17,7 @@ class Shooting_Rocket():
         pygame.init()
         self.clock = pygame.time.Clock()
         self.settings = Settings() # settings
+        self.stats = Stats(self)
         # background
         self.screen = pygame.display.set_mode((self.settings.screen_w, 
                                                self.settings.screen_h))
@@ -29,21 +31,21 @@ class Shooting_Rocket():
         # give a caption 
         pygame.display.set_caption("SHOOTING SPACESHIP!")
 
-        # game status
-        self.game_status = self.settings.game_status 
-
 
     def run(self):
         """Run the game."""
-        while self.game_status:
+        while True:
             self._activity()
-            self.create_enemies()
-            self.rocket.moving_rocket() 
-            self._check_enemies() 
-            self._check_bullet()
-            self.check_collision() 
+            if self.stats.active:
+                self.create_enemies()
+                self.rocket.moving_rocket() 
+                self._check_enemies() 
+                self._check_bullet()
+                self.check_collision() 
+                self.draw()     
             self.draw() 
-            self.clock.tick(60)    
+            self.clock.tick(60)
+
 
     def check_collision(self):
         """Check if collision between bullets and enemies took place."""
@@ -56,11 +58,11 @@ class Shooting_Rocket():
         # Stop the game after rocket hits an enemy
         for enemy in self.enemies.copy():
             if self.rocket.rocket_rect.colliderect(enemy.enemy_rect):
-                self.game_status = False 
+                self.stats.active = False 
         # Stop the game after an enemy hits the bottom of the screen 
         for enemy in self.enemies.copy():
             if enemy.enemy_rect.bottom >= self.settings.screen_h:
-                self.game_status = False
+                self.stats.active = False
 
     def create_enemies(self):
         """Create an enemy."""  

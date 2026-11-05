@@ -23,6 +23,3 @@ class Settings():
         self.capacity = 5
         # spawn new enemy gab
         self.spawn_gab = 100 
-
-        # game status
-        self.game_status = True

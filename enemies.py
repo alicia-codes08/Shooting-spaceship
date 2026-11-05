@@ -12,6 +12,7 @@ class Enemy(Sprite):
         super().__init__()
 
         self.settings = shooting_rocket.settings # settings
+        self.stats = shooting_rocket.stats
         self.screen = shooting_rocket.screen
         self.screen_rect = self.screen.get_rect() 
 
@@ -24,7 +25,7 @@ class Enemy(Sprite):
         # positioning the enemy
         self.enemy_rect.midbottom = self.screen_rect.midtop 
         left_side = int(self.settings.enemy_w*0.5)
-        right_side = int(self.settings.screen_w - left_side)
+        right_side = int(self.settings.screen_w - self.settings.enemy_w*1.5)
         self.enemy_rect.x = randint(left_side, right_side) 
 
         self.y = float(self.enemy_rect.y) 
@@ -35,5 +36,6 @@ class Enemy(Sprite):
 
     def update(self):
         """Move the enemy along the y-axis."""
-        self.y += self.settings.enemy_v 
-        self.enemy_rect.y = self.y 
+        if self.stats.active:
+            self.y += self.settings.enemy_v 
+            self.enemy_rect.y = self.y 
