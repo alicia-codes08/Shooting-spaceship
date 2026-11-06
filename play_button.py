@@ -11,7 +11,7 @@ class Play():
 
         # characteristics
         self.play_w, self.play_h = self.settings.play_w, self.settings.play_h
-        self.play_c = self.settings.play_color
+        self.play_c = self.settings.play_color 
         self.text_c = self.settings.play_color_text
         self.play_font = pygame.font.SysFont(None, self.settings.play_text)
 

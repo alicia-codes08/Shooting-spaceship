@@ -14,7 +14,7 @@ class Settings():
         self.enemy_w = 70
         self.enemy_h = 90
 
-        # button dimensions
+        # button dimensions and colors
         self.play_w = 160
         self.play_h = 60
         self.play_text = 48 
@@ -30,3 +30,5 @@ class Settings():
         self.capacity = 5
         # spawn new enemy gab
         self.spawn_gab = 100 
+        # points when shooting enemy
+        self.points = 100 
