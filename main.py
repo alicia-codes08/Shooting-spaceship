@@ -92,9 +92,15 @@ class Shooting_Rocket():
         """Take action based on keyboard activity."""
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
+                if self.stats.score > self.stats.highscore:
+                    self.stats.highscore = self.stats.score
+                self.stats.saving_highscore() # save highscore before leaving
                 sys.exit()
             elif event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_q:
+                    if self.stats.score > self.stats.highscore:
+                        self.stats.highscore = self.stats.score
+                    self.stats.saving_highscore() # save highscore before leaving
                     sys.exit() 
                 elif event.key == pygame.K_RIGHT:
                     self.rocket.moving_right = True
