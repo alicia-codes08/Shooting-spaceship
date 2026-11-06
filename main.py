@@ -44,7 +44,7 @@ class Shooting_Rocket():
             self.enemies.empty()
             self.bullets.empty()
             self.rocket.center_rocket() 
-            self.stats.active = True
+            self.stats.active = True 
 
     def run(self):
         """Run the game."""
@@ -76,6 +76,7 @@ class Shooting_Rocket():
             if self.rocket.rocket_rect.colliderect(enemy.enemy_rect):
                 if self.stats.score > self.stats.highscore:
                     self.stats.highscore = self.stats.score
+                    self.scoreboard.highscore_text()
                 self.stats.active = False 
                 self.stats.reset_stats() 
         # Stop the game after an enemy hits the bottom of the screen 
@@ -83,6 +84,7 @@ class Shooting_Rocket():
             if enemy.enemy_rect.bottom >= self.settings.screen_h:
                 if self.stats.score > self.stats.highscore:
                     self.stats.highscore = self.stats.score
+                    self.scoreboard.highscore_text()
                 self.stats.active = False
                 self.stats.reset_stats() 
 
@@ -123,6 +125,7 @@ class Shooting_Rocket():
             enemy.draw_enemy() 
         if not self.stats.active:
             self.play_button.draw_playbutton()
+            self.scoreboard.draw_scoreboard() 
         pygame.display.flip() 
 
     def _make_bullet(self):
