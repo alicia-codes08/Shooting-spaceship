@@ -36,5 +36,5 @@ class Bullets(Sprite):
     def update(self):
         """Move the bullets verticaly."""
         if self.stats.active:
-            self.y -= self.settings.bullet_v 
+            self.y -= self.settings.bullet_v * self.stats.speed
             self.bullet_rect.y = self.y 

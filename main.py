@@ -50,6 +50,7 @@ class Shooting_Rocket():
         """Run the game."""
         while True:
             self._activity()
+            self.scoreboard.score_text() 
             if self.stats.active:
                 self.create_enemies()
                 self.rocket.moving_rocket() 
@@ -66,10 +67,10 @@ class Shooting_Rocket():
             for enemy in self.enemies.copy():
                 if bullet.bullet_rect.colliderect(enemy.enemy_rect):
                     self.stats.score += self.settings.points
+                    self.stats.speed *= self.settings.speed_up 
                     self.scoreboard.score_text() 
                     self.bullets.remove(bullet)
                     self.enemies.remove(enemy)
-
         # Stop the game after rocket hits an enemy
         for enemy in self.enemies.copy():
             if self.rocket.rocket_rect.colliderect(enemy.enemy_rect):

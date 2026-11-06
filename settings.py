@@ -3,7 +3,7 @@ class Settings():
     def __init__(self):
         """Save basic settings.""" 
         # screen settings
-        self.screen_w = 700
+        self.screen_w = 600
         self.screen_h = 650 
 
         # element dimensions
@@ -32,3 +32,5 @@ class Settings():
         self.spawn_gab = 100 
         # points when shooting enemy
         self.points = 100 
+        self.start_speed = 1 
+        self.speed_up = 1.05

@@ -13,4 +13,5 @@ class Stats():
 
     def reset_stats(self):
         """Let the statistics change during the game and reset it afterwards."""
-        self.score = 0
+        self.score = 0 
+        self.speed = self.settings.start_speed

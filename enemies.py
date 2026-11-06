@@ -37,5 +37,5 @@ class Enemy(Sprite):
     def update(self):
         """Move the enemy along the y-axis."""
         if self.stats.active:
-            self.y += self.settings.enemy_v 
+            self.y += self.settings.enemy_v * self.stats.speed
             self.enemy_rect.y = self.y 

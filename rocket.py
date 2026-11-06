@@ -9,6 +9,7 @@ class Rocket():
         self.screen = shooting_rocket.screen
         self.screen_rect = self.screen.get_rect()
         self.settings = shooting_rocket.settings # settings
+        self.stats = shooting_rocket.stats
 
         # rocket image 
         rocket_load = pygame.image.load("purple_rocket.png").convert_alpha()
@@ -30,9 +31,9 @@ class Rocket():
     def moving_rocket(self):
         """Moving rocket horizontal."""
         if self.moving_right and (self.rocket_rect.right<self.screen_rect.right):
-            self.rocket_rect.x += self.settings.rocket_v
+            self.rocket_rect.x += self.settings.rocket_v * self.stats.speed
         if self.moving_left and (self.rocket_rect.left>0):
-            self.rocket_rect.x -= self.settings.rocket_v
+            self.rocket_rect.x -= self.settings.rocket_v * self.stats.speed
 
     def center_rocket(self):
         """Center the rocket when starting a new game."""
