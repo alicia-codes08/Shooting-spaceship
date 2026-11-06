@@ -66,6 +66,7 @@ class Shooting_Rocket():
             for enemy in self.enemies.copy():
                 if bullet.bullet_rect.colliderect(enemy.enemy_rect):
                     self.stats.score += self.settings.points
+                    self.scoreboard.score_text() 
                     self.bullets.remove(bullet)
                     self.enemies.remove(enemy)
 

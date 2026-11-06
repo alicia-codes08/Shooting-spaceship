@@ -13,12 +13,13 @@ class Play():
         self.play_w, self.play_h = self.settings.play_w, self.settings.play_h
         self.play_c = self.settings.play_color 
         self.text_c = self.settings.play_color_text
-        self.play_font = pygame.font.SysFont(None, self.settings.play_text)
+        self.play_font = pygame.font.Font("press_start_2p/PressStart2P.ttf", 
+                                          self.settings.play_text)
 
         self.play_rect = pygame.Rect(0, 0, self.play_w, self.play_h)
         self.play_rect.center = self.screen_rect.center
 
-        self._playbutton_text("PLAY!")
+        self._playbutton_text("PLAY")
 
     def _playbutton_text(self, text):
         """Put text on the playbutton."""

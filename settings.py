@@ -15,9 +15,9 @@ class Settings():
         self.enemy_h = 90
 
         # button dimensions and colors
-        self.play_w = 160
-        self.play_h = 60
-        self.play_text = 48 
+        self.play_w = 220
+        self.play_h = 80
+        self.play_text = 40
         self.play_color = (200, 30, 200)
         self.play_color_text = (255, 255, 255)
 

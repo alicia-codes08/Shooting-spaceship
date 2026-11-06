@@ -12,7 +12,7 @@ class Scoreboard():
 
         # characteristics
         self.text_c = self.settings.play_color_text
-        self.font = pygame.font.SysFont(None, 34)
+        self.font = pygame.font.Font("press_start_2p/PressStart2P.ttf", 20)
 
         self.score_text()
 
@@ -20,11 +20,12 @@ class Scoreboard():
         """Display the score in the bottom right."""
         self.score = f"SCORE: {self.stats.score:,}"
         self.score_img = self.font.render(self.score, True,
-                        self.settings.play_color_text ,self.settings.play_color)
+                        self.settings.play_color_text, None)
 
         self.score_rect = self.score_img.get_rect() 
-        self.score_rect.right = self.settings.screen_w - 30
-        self.score_rect.bottom = self.settings.screen_h - 30
+        self.score_rect.right = self.settings.screen_w - 20
+        self.score_rect.bottom = self.settings.screen_h - 20
 
     def draw_scoreboard(self):
-        self.screen.blit(self.score_img, self.score_rect)
+        """Drawing the scoreboard on the screen."""
+        self.screen.blit(self.score_img, self.score_rect) 
