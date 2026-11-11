@@ -13,3 +13,5 @@ It shows your current points during the game.
 
 Font type source:
 https://www.dafont.com/ 
+
+(Added the ability to archive and save an highscore in an extra branch.)
